@@ -1,8 +1,10 @@
 # X帳號研究｜每日自找全析
 
-以繁體中文瀏覽 Chris「X帳號研究」工作流產出的每日 X 帳號拆號報告。內容來自 `content/reports/` 的 Markdown，建置時靜態生成，沒有資料庫。
+以繁體中文瀏覽 Chris「X帳號研究」工作流產出的每日 X 帳號拆號報告。內容來自 `content/reports/` 的 Markdown，建置時靜態匯出，沒有資料庫。
 
 > 每日自找 X 帳號全析 · 只讀公開資料
+
+**公開網址：** [https://a70win-wq.github.io/x-account-reports-site/](https://a70win-wq.github.io/x-account-reports-site/)
 
 ## 本機
 
@@ -11,11 +13,22 @@ npm install
 npm run dev
 ```
 
-瀏覽 [http://localhost:3000](http://localhost:3000)。
+瀏覽 [http://localhost:3000](http://localhost:3000)。本機開發**不會**套用 GitHub Pages 的 `basePath`。
 
 ```bash
 npm run build
-npm start
+```
+
+會產出靜態目錄 `out/`（含全部報告頁）。本機預覽可把 `out/` 當靜態網站開，例如：
+
+```bash
+npx --yes serve out
+```
+
+建置給 GitHub Pages 時需加上 `GITHUB_PAGES=true`，才會把 `basePath`／`assetPrefix` 設成 `/x-account-reports-site`：
+
+```bash
+GITHUB_PAGES=true npm run build
 ```
 
 ## 新增一篇報告
@@ -24,7 +37,7 @@ npm start
 2. 檔名用 `<handle>-YYYYMMDD.md`，例如 `Fred834567-20260917.md`。同一天多篇時可在日期後加後綴，如 `Chris62771610-views-gap-20260912.md`。
 3. **不要自編報告編號**；標題、日期、粉絲、完整／部分標籤都從檔案抽出。
 4. 可選 YAML frontmatter（`handle`、`date`、`displayName`、`followers`、`conclusion`）；沒有就讀正文與檔名。
-5. 提交並推送後重新部署即可。Vercel 若已接此 repo，push 到 `main` 會自動重建。
+5. 提交並推送到 `main` 後，GitHub Actions 會重新靜態建置並部署到 GitHub Pages。
 
 ```md
 # `@ExampleHandle`（顯示名）全析報告
@@ -32,19 +45,20 @@ npm start
 - 報告日期：2026-09-18（香港時間）｜**完整報告**
 ```
 
-## 部署到 Vercel
+## 部署到 GitHub Pages
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/a70win-wq/x-account-reports-site)
+此 repo 以 **GitHub Actions** 部署靜態站，不使用 Vercel。
 
-或在 Vercel 儀表板 **Import** 這個 GitHub repo（`a70win-wq/x-account-reports-site`）：
+推送到 `main` 會觸發 `.github/workflows/pages.yml`：Node 20 執行 `GITHUB_PAGES=true npm run build`，上傳 `out/`，再用 `actions/deploy-pages` 發布。
 
-- Framework Preset：Next.js
-- Build Command：`npm run build`
-- Output：Next.js 預設即可
+預期網址：
 
-無需環境變數。
+`https://a70win-wq.github.io/x-account-reports-site/`
+
+第一次啟用時，請在 GitHub 打開 **Settings → Pages**，將 **Source** 設為 **GitHub Actions**（若尚未設定）。之後每次 push `main` 會自動更新。
 
 ## 技術
 
-- Next.js App Router、TypeScript、Tailwind CSS
+- Next.js App Router 靜態匯出（`output: 'export'`）、TypeScript、Tailwind CSS
 - 建置時讀 `content/reports/*.md`，`generateStaticParams` 產出詳情頁
+- GitHub Pages 專案頁使用 `basePath`／`assetPrefix`：`/x-account-reports-site`
