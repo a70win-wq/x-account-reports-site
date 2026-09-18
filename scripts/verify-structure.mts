@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { parseReportStructure } from "../src/lib/structure.ts";
+import {
+  metricChips,
+  parseReportStructure,
+  shortLearnablePoints,
+} from "../src/lib/structure.ts";
 
 const dir = path.join(process.cwd(), "content", "reports");
 const files = fs.readdirSync(dir).filter((name) => name.endsWith(".md"));
@@ -53,6 +57,26 @@ if (ryrenz.hardMetricLines.length < 5) {
 }
 if (!ryrenz.hardMetricLines[0]?.includes("10316")) {
   console.error("Ryrenz first metric should keep 10316 from the file");
+  failed += 1;
+}
+
+const takeaways = shortLearnablePoints(ryrenz.learnablePoints, 3);
+if (takeaways.length !== 3 || takeaways.some((point) => point.includes("一天約"))) {
+  console.error("Ryrenz 今日學咩 should be 3 short existing titles", takeaways);
+  failed += 1;
+}
+if (!takeaways.includes("日更工廠 × 固定版式")) {
+  console.error("Ryrenz first takeaway should reuse the existing bold title");
+  failed += 1;
+}
+
+const chips = metricChips(ryrenz.hardMetricLines, 4);
+if (chips.length !== 4) {
+  console.error(`Ryrenz chips should be 4, got ${chips.length}`, chips);
+  failed += 1;
+}
+if (!chips[0]?.includes("10316") || chips.some((chip) => chip.includes("/workspace/"))) {
+  console.error("Ryrenz chips must reuse 原文硬數 text only", chips);
   failed += 1;
 }
 

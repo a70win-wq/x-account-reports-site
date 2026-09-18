@@ -92,6 +92,33 @@ function extractMetricLines(section: string): string[] {
     .slice(0, 6);
 }
 
+export function shortLearnablePoint(point: string): string {
+  const bold = point.match(/\*\*(.+?)\*\*/);
+  if (bold?.[1]) {
+    return stripMdMarks(bold[1]);
+  }
+
+  const stripped = stripMdMarks(point);
+  const clause = stripped.split(/[。；;]/)[0]?.trim() || stripped;
+  return clause.length > 48 ? `${clause.slice(0, 47)}…` : clause;
+}
+
+export function shortLearnablePoints(points: string[], max = 3): string[] {
+  return points.slice(0, max).map(shortLearnablePoint).filter(Boolean);
+}
+
+export function metricChips(lines: string[], max = 4): string[] {
+  const chips: string[] = [];
+  for (const line of lines) {
+    const parts = line.split(/[｜|]/).map((part) => part.trim()).filter(Boolean);
+    for (const part of parts) {
+      chips.push(part);
+      if (chips.length >= max) return chips;
+    }
+  }
+  return chips;
+}
+
 function kindForTitle(title: string): ReportSection["kind"] {
   if (isLearnableTitle(title)) return "learnable";
   if (isAppendixTitle(title)) return "appendix";

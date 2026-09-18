@@ -8,16 +8,11 @@ const links = [
 export function SiteHeader() {
   return (
     <header className="border-b border-rule">
-      <div className="mx-auto flex max-w-6xl items-end justify-between gap-6 px-5 py-5 sm:px-8">
-        <Link href="/" className="group block min-w-0">
-          <p className="text-[13px] text-amber">
-            X帳號研究
-          </p>
-          <p className="mt-1 font-serif text-xl text-cream sm:text-2xl">
-            每日自找全析
-          </p>
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 sm:px-8">
+        <Link href="/" className="group block min-w-0 text-[15px] text-muted hover:text-cream">
+          X帳號研究
         </Link>
-        <nav className="flex shrink-0 items-center gap-5 pb-1 font-sans text-sm text-muted">
+        <nav className="flex shrink-0 items-center gap-5 font-sans text-sm text-muted">
           {links.map((link) => (
             <Link
               key={link.href}

@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { HardMetrics } from "@/components/HardMetrics";
-import { LearnableBox } from "@/components/LearnableBox";
+import { ConclusionCard } from "@/components/ConclusionCard";
 import { ReportBody } from "@/components/ReportBody";
-import { ReportSummaryStrip } from "@/components/ReportSummaryStrip";
-import { ReportToc } from "@/components/ReportToc";
+import { ReportExpand } from "@/components/ReportExpand";
 import { getAdjacentReports, getAllReports, getReport } from "@/lib/reports";
-import { parseReportStructure } from "@/lib/structure";
+import { metricChips, parseReportStructure, shortLearnablePoints } from "@/lib/structure";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -35,7 +33,8 @@ export default async function ReportPage({ params }: PageProps) {
 
   const { previous, next } = getAdjacentReports(slug);
   const structure = parseReportStructure(report.body);
-  const learnableSection = structure.sections.find((section) => section.kind === "learnable");
+  const takeaways = shortLearnablePoints(structure.learnablePoints, 3);
+  const chips = metricChips(structure.hardMetricLines, 4);
 
   return (
     <main className="mx-auto w-full max-w-[42rem] flex-1 px-5 py-8 sm:px-8 sm:py-12">
@@ -48,16 +47,15 @@ export default async function ReportPage({ params }: PageProps) {
         </Link>
       </p>
 
-      <ReportSummaryStrip report={report} />
-      <HardMetrics lines={structure.hardMetricLines} />
-      <LearnableBox id={learnableSection?.id} points={structure.learnablePoints} />
-      <ReportToc items={structure.toc} />
+      <ConclusionCard report={report} takeaways={takeaways} chips={chips} />
 
-      <article className="mt-2">
-        <ReportBody sections={structure.sections} />
-      </article>
+      <ReportExpand toc={structure.toc}>
+        <article>
+          <ReportBody sections={structure.sections} />
+        </article>
+      </ReportExpand>
 
-      <nav className="mt-14 flex flex-col gap-4 border-t border-rule pt-8 text-[15px] sm:flex-row sm:justify-between">
+      <nav className="mt-16 flex flex-col gap-4 border-t border-rule pt-8 text-[15px] sm:flex-row sm:justify-between">
         {previous ? (
           <Link href={`/reports/${previous.slug}`} className="text-muted hover:text-cream">
             <span className="block text-[13px] text-faint">上一篇</span>

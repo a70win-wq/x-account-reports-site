@@ -41,10 +41,6 @@ export function ReportBody({ sections }: { sections: ReportSection[] }) {
   return (
     <div className="report-body pt-2">
       {visible.map((section) => {
-        if (section.kind === "learnable") {
-          return null;
-        }
-
         if (section.kind === "research" && section.title) {
           return (
             <ResearchFold
