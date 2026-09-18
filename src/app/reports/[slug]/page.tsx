@@ -39,7 +39,7 @@ export default async function ReportPage({ params }: PageProps) {
           目錄
         </Link>
         <span className="mx-2 text-faint">／</span>
-        <span>@{report.handle}</span>
+        <span>{`@${report.handle}`}</span>
       </p>
 
       <header className="mt-6 border-b border-rule pb-8">
@@ -54,7 +54,7 @@ export default async function ReportPage({ params }: PageProps) {
         </h1>
         <p className="mt-3 font-mono text-amber">
           <a href={report.xUrl} target="_blank" rel="noreferrer" className="hover:text-cream">
-            @{report.handle}
+            {`@${report.handle}`}
           </a>
         </p>
         {report.conclusion ? (
@@ -82,7 +82,7 @@ export default async function ReportPage({ params }: PageProps) {
         {previous ? (
           <Link href={`/reports/${previous.slug}`} className="text-muted hover:text-cream">
             <span className="block font-mono text-[11px] tracking-widest text-faint">較舊</span>
-            @{previous.handle}
+            {`@${previous.handle}`}
           </Link>
         ) : (
           <span />
@@ -90,7 +90,7 @@ export default async function ReportPage({ params }: PageProps) {
         {next ? (
           <Link href={`/reports/${next.slug}`} className="text-right text-muted hover:text-cream">
             <span className="block font-mono text-[11px] tracking-widest text-faint">較新</span>
-            @{next.handle}
+            {`@${next.handle}`}
           </Link>
         ) : null}
       </nav>

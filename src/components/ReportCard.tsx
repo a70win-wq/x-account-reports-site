@@ -25,7 +25,7 @@ export function ReportCard({ report }: { report: ReportSummary }) {
         </Link>
       </h2>
 
-      <p className="mt-1 font-mono text-sm text-amber">@{report.handle}</p>
+      <p className="mt-1 font-mono text-sm text-amber">{`@${report.handle}`}</p>
 
       {report.conclusion ? (
         <p className="mt-4 line-clamp-2 text-[15px] leading-7 text-muted">
