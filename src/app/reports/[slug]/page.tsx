@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CompletenessBadge } from "@/components/CompletenessBadge";
-import { MarkdownBody } from "@/components/MarkdownBody";
-import { formatFollowers } from "@/lib/format";
+import { HardMetrics } from "@/components/HardMetrics";
+import { LearnableBox } from "@/components/LearnableBox";
+import { ReportBody } from "@/components/ReportBody";
+import { ReportSummaryStrip } from "@/components/ReportSummaryStrip";
+import { ReportToc } from "@/components/ReportToc";
 import { getAdjacentReports, getAllReports, getReport } from "@/lib/reports";
+import { parseReportStructure } from "@/lib/structure";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -31,66 +34,42 @@ export default async function ReportPage({ params }: PageProps) {
   if (!report) notFound();
 
   const { previous, next } = getAdjacentReports(slug);
+  const structure = parseReportStructure(report.body);
+  const learnableSection = structure.sections.find((section) => section.kind === "learnable");
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-10 sm:px-8 sm:py-14">
-      <p className="font-mono text-[12px] text-muted">
-        <Link href="/" className="hover:text-cream">
-          目錄
+    <main className="mx-auto w-full max-w-[42rem] flex-1 px-5 py-8 sm:px-8 sm:py-12">
+      <p>
+        <Link
+          href="/"
+          className="inline-flex items-center text-[16px] text-amber hover:text-cream"
+        >
+          ← 返回全部報告
         </Link>
-        <span className="mx-2 text-faint">／</span>
-        <span>{`@${report.handle}`}</span>
       </p>
 
-      <header className="mt-6 border-b border-rule pb-8">
-        <div className="flex flex-wrap items-center gap-3">
-          <time dateTime={report.date} className="font-mono text-[12px] tracking-[0.16em] text-muted">
-            {report.dateLabel}
-          </time>
-          <CompletenessBadge value={report.completeness} />
-        </div>
-        <h1 className="mt-4 font-serif text-[2.1rem] leading-tight text-cream sm:text-5xl">
-          {report.displayName ?? `@${report.handle}`}
-        </h1>
-        <p className="mt-3 font-mono text-amber">
-          <a href={report.xUrl} target="_blank" rel="noreferrer" className="hover:text-cream">
-            {`@${report.handle}`}
-          </a>
-        </p>
-        {report.conclusion ? (
-          <p className="mt-5 max-w-xl text-base leading-8 text-muted">{report.conclusion}</p>
-        ) : null}
-        <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm text-cream/90">
-          {report.followers != null ? (
-            <div>
-              <dt className="font-mono text-[11px] tracking-widest text-faint">粉絲</dt>
-              <dd className="mt-1">{formatFollowers(report.followers)}</dd>
-            </div>
-          ) : null}
-          <div>
-            <dt className="font-mono text-[11px] tracking-widest text-faint">報告日</dt>
-            <dd className="mt-1">{report.dateLabel}</dd>
-          </div>
-        </dl>
-      </header>
+      <ReportSummaryStrip report={report} />
+      <HardMetrics lines={structure.hardMetricLines} />
+      <LearnableBox id={learnableSection?.id} points={structure.learnablePoints} />
+      <ReportToc items={structure.toc} />
 
-      <article className="pt-2">
-        <MarkdownBody markdown={report.body} />
+      <article className="mt-2">
+        <ReportBody sections={structure.sections} />
       </article>
 
-      <nav className="mt-14 flex flex-col gap-4 border-t border-rule pt-8 text-sm sm:flex-row sm:justify-between">
+      <nav className="mt-14 flex flex-col gap-4 border-t border-rule pt-8 text-[15px] sm:flex-row sm:justify-between">
         {previous ? (
           <Link href={`/reports/${previous.slug}`} className="text-muted hover:text-cream">
-            <span className="block font-mono text-[11px] tracking-widest text-faint">較舊</span>
-            {`@${previous.handle}`}
+            <span className="block text-[13px] text-faint">上一篇</span>
+            {previous.displayName ?? `@${previous.handle}`}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
           <Link href={`/reports/${next.slug}`} className="text-right text-muted hover:text-cream">
-            <span className="block font-mono text-[11px] tracking-widest text-faint">較新</span>
-            {`@${next.handle}`}
+            <span className="block text-[13px] text-faint">下一篇</span>
+            {next.displayName ?? `@${next.handle}`}
           </Link>
         ) : null}
       </nav>

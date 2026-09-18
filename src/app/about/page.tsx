@@ -7,8 +7,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-5 py-10 sm:px-8 sm:py-16">
-      <p className="font-mono text-[11px] tracking-[0.28em] text-seal">ABOUT</p>
-      <h1 className="mt-3 font-serif text-4xl text-cream">關於這份目錄</h1>
+      <h1 className="font-serif text-4xl text-cream">關於這份目錄</h1>
       <div className="mt-8 space-y-6 text-[17px] leading-8 text-muted">
         <p>每日自找 X 帳號全析 · 只讀公開資料。</p>
         <p>

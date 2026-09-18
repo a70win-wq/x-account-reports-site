@@ -75,7 +75,7 @@ export function ReportGallery({ reports }: { reports: ReportSummary[] }) {
             }
             className="border border-rule bg-paper px-2 py-2 text-sm text-cream"
           >
-            <option value="all">全部標籤</option>
+            <option value="all">全部</option>
             <option value="full">只看完整</option>
             <option value="partial">只看部分</option>
           </select>

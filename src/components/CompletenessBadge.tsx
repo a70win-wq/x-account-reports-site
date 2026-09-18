@@ -11,7 +11,7 @@ export function CompletenessBadge({
   const isFull = value === "full";
   return (
     <span
-      className={`inline-flex items-center border px-1.5 py-0.5 font-mono text-[10px] tracking-[0.18em] ${
+      className={`inline-flex items-center border px-2 py-0.5 text-[13px] ${
         isFull
           ? "border-seal/70 bg-seal/10 text-seal"
           : "border-olive/70 bg-olive/10 text-olive"
