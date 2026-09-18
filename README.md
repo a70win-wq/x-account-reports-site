@@ -49,13 +49,11 @@ GITHUB_PAGES=true npm run build
 
 此 repo 以 **GitHub Actions** 部署靜態站，不使用 Vercel。
 
-推送到 `main` 會觸發 `.github/workflows/pages.yml`：Node 20 執行 `GITHUB_PAGES=true npm run build`，上傳 `out/`，再用 `actions/deploy-pages` 發布。
+推送到 `main` 會觸發 `.github/workflows/pages.yml`：Node 20 執行 `GITHUB_PAGES=true npm run build`，再把 `out/` 發到 `gh-pages` 分支。此 repo 的 Pages 來源是 **Deploy from a branch → `gh-pages`**，不是 GitHub Actions 環境（該環境目前只准 `gh-pages`，`main` 上的 `deploy-pages` 會被擋）。
 
 預期網址：
 
 `https://a70win-wq.github.io/x-account-reports-site/`
-
-第一次啟用時，請在 GitHub 打開 **Settings → Pages**，將 **Source** 設為 **GitHub Actions**（若尚未設定）。之後每次 push `main` 會自動更新。
 
 ## 技術
 
