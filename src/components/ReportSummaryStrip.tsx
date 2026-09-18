@@ -9,7 +9,7 @@ export function ReportSummaryStrip({ report }: { report: Report }) {
     <header className="mt-6 border border-rule-strong/80 bg-card px-5 py-6 sm:px-7 sm:py-7">
       <div className="flex flex-wrap items-center gap-2.5">
         <CompletenessBadge value={report.completeness} />
-        <time dateTime={report.date} className="text-[15px] text-muted">
+        <time dateTime={report.date} className="text-[16px] text-cream/85">
           {report.dateLabel}
         </time>
       </div>

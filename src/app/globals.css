@@ -7,8 +7,8 @@
   --rule: #4a3f30;
   --rule-strong: #6a5a42;
   --cream: #f7eedc;
-  --muted: #cbbba0;
-  --faint: #9a8b74;
+  --muted: #ddd0b6;
+  --faint: #b5a58c;
   --amber: #e0b25c;
   --seal: #d45a3d;
   --olive: #c4a64d;
@@ -219,7 +219,19 @@ select:focus-visible {
   padding: 0.55rem 0.7rem;
   text-align: left;
   vertical-align: top;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+}
+
+.prose-report td {
+  max-width: 22rem;
+}
+
+.prose-report td.is-quiet,
+.prose-report th.is-quiet {
+  color: var(--faint);
+  font-size: 0.82em;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .prose-report th {

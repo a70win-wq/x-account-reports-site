@@ -110,7 +110,7 @@ function parseConclusion(markdown: string): string | null {
   ]);
   if (!found) return null;
   const oneLine = stripMd(found).replace(/^[:：]\s*/, "");
-  return oneLine.length > 90 ? `${oneLine.slice(0, 89)}…` : oneLine;
+  return oneLine.length > 160 ? `${oneLine.slice(0, 159)}…` : oneLine;
 }
 
 function parseTitle(markdown: string, handle: string): string {

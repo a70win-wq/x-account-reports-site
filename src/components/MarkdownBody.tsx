@@ -21,6 +21,19 @@ const components: Components = {
       <table>{children}</table>
     </div>
   ),
+  th: ({ children }) => {
+    const text = flattenNodeText(children);
+    const quiet = /確定度|UID|來源/.test(text);
+    return <th className={quiet ? "is-quiet" : undefined}>{children}</th>;
+  },
+  td: ({ children }) => {
+    const text = flattenNodeText(children).trim();
+    const quiet =
+      /^(高|中|低)(?:（|$)/.test(text) ||
+      /^\d{15,}$/.test(text) ||
+      /verified_type|\/workspace\//.test(text);
+    return <td className={quiet ? "is-quiet" : undefined}>{children}</td>;
+  },
   blockquote: ({ children }) => {
     const isMeta = looksLikeMetaNote(flattenNodeText(children));
     return <blockquote className={isMeta ? "is-meta" : undefined}>{children}</blockquote>;

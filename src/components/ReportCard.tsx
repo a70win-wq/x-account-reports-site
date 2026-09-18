@@ -21,7 +21,9 @@ export function ReportCard({ report }: { report: ReportSummary }) {
       </div>
 
       {report.conclusion ? (
-        <p className="mt-5 text-[16px] leading-7 text-muted">{report.conclusion}</p>
+        <p className="mt-5 line-clamp-3 text-[16px] leading-7 text-cream/80">
+          {report.conclusion}
+        </p>
       ) : null}
 
       <p className="mt-auto pt-6 text-[15px] text-amber group-hover:text-cream">看完整報告</p>
