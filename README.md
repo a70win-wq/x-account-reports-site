@@ -35,7 +35,7 @@ GITHUB_PAGES=true npm run build
 
 1. 把定稿 Markdown 放進 `content/reports/`。
 2. 檔名用 `<handle>-YYYYMMDD.md`，例如 `Fred834567-20260917.md`。同一天多篇時可在日期後加後綴，如 `Chris62771610-views-gap-20260912.md`。
-3. **不要自編報告編號**；標題、日期、粉絲、完整／部分毉籤都從檔案抽出。
+3. **不要自編報告編號**；標題、日期、粉絲、完整／部分標籤都從檔案抽出。
 4. 可選 YAML frontmatter（`handle`、`date`、`displayName`、`followers`、`conclusion`）；沒有就讀正文與檔名。
 5. 提交並推送到 `main` 後，GitHub Actions 會重新靜態建置並部署到 GitHub Pages。
 
@@ -55,7 +55,7 @@ GITHUB_PAGES=true npm run build
 
 `https://a70win-wq.github.io/x-account-reports-site/`
 
-推送 `main` 會自動建置並部署。若部署失敗，請確認 **Settings → Pages** 的 Source 為 **GitHub Actions**。
+第一次啟用時，請在 GitHub 打開 **Settings → Pages**，將 **Source** 設為 **GitHub Actions**（若尚未設定）。之後每次 push `main` 會自動更新。
 
 ## 技術
 
