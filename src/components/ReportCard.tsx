@@ -5,7 +5,7 @@ import type { ReportSummary } from "@/lib/types";
 
 export function ReportCard({ report }: { report: ReportSummary }) {
   return (
-    <article className="group relative flex h-full flex-col border border-rule bg-card/80 p-5 transition-colors hover:border-amber/50 hover:bg-card">
+    <article className="group relative flex h-full flex-col border border-rule-strong/70 bg-card p-5 shadow-[0_12px_32px_rgba(0,0,0,0.28)] transition-colors hover:border-amber">
       <div className="flex items-start justify-between gap-3">
         <time
           dateTime={report.date}

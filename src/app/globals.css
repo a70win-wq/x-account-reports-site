@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0c0a07;
-  --paper: #14110c;
-  --card: #1c1812;
-  --rule: #2f291f;
-  --rule-strong: #4a4032;
-  --cream: #f3ead8;
-  --muted: #9c907c;
-  --faint: #6f6658;
-  --amber: #d4a45a;
-  --seal: #c24b32;
-  --olive: #b59a4a;
-  --link: #e0c48a;
+  --ink: #16130e;
+  --paper: #1f1a14;
+  --card: #2a231a;
+  --rule: #4a3f30;
+  --rule-strong: #6a5a42;
+  --cream: #f7eedc;
+  --muted: #cbbba0;
+  --faint: #9a8b74;
+  --amber: #e0b25c;
+  --seal: #d45a3d;
+  --olive: #c4a64d;
+  --link: #ebc888;
 }
 
 @theme inline {
@@ -42,13 +42,13 @@ html {
 body {
   min-height: 100%;
   background:
-    radial-gradient(1200px 500px at 10% -10%, rgba(194, 75, 50, 0.08), transparent 50%),
-    radial-gradient(900px 420px at 100% 0%, rgba(212, 164, 90, 0.06), transparent 45%),
+    radial-gradient(900px 420px at 8% -8%, rgba(212, 90, 61, 0.16), transparent 52%),
+    radial-gradient(800px 380px at 100% 0%, rgba(224, 178, 92, 0.1), transparent 48%),
     repeating-linear-gradient(
       180deg,
       transparent,
       transparent 23px,
-      rgba(243, 234, 216, 0.015) 24px
+      rgba(247, 238, 220, 0.035) 24px
     ),
     var(--ink);
   font-feature-settings: "palt" 1;
@@ -185,7 +185,7 @@ select:focus-visible {
 }
 
 .prose-report th {
-  background: rgba(243, 234, 216, 0.05);
+  background: rgba(247, 238, 220, 0.08);
   color: var(--link);
   font-weight: 500;
   white-space: nowrap;

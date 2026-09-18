@@ -42,7 +42,7 @@ export function ReportGallery({ reports }: { reports: ReportSummary[] }) {
 
   return (
     <div>
-      <div className="flex flex-col gap-3 border border-rule bg-card/50 p-3 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 border border-rule-strong/70 bg-card p-3 sm:flex-row sm:items-center">
         <label className="sr-only" htmlFor="report-search">
           搜尋帳號或關鍵字
         </label>
@@ -62,7 +62,7 @@ export function ReportGallery({ reports }: { reports: ReportSummary[] }) {
             id="report-sort"
             value={sort}
             onChange={(event) => setSort(event.target.value as SortKey)}
-            className="bg-ink px-2 py-2 text-sm text-cream"
+            className="border border-rule bg-paper px-2 py-2 text-sm text-cream"
           >
             <option value="newest">日期：最新在前</option>
             <option value="oldest">日期：最舊在前</option>
@@ -73,7 +73,7 @@ export function ReportGallery({ reports }: { reports: ReportSummary[] }) {
             onChange={(event) =>
               setCompleteness(event.target.value as CompletenessFilter)
             }
-            className="bg-ink px-2 py-2 text-sm text-cream"
+            className="border border-rule bg-paper px-2 py-2 text-sm text-cream"
           >
             <option value="all">全部標籤</option>
             <option value="full">只看完整</option>
